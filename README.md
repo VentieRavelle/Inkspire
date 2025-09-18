@@ -1,5 +1,6 @@
 #  Inkspire — OSINT Port Scanner
-![Uploading inkspire.jpg…]()
+![inkspire](https://github.com/user-attachments/assets/b21922a8-c0db-4aa0-921a-1e9018362bd3)
+
 
 
 Inkspire — это быстрый и надёжный сканер портов, созданный на языке Go. Помимо проверки состояния портов, он собирает основную OSINT-информацию о цели, такую как геолокация, данные WHOIS и DNS-записи.
