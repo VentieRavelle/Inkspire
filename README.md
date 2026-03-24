@@ -1,53 +1,45 @@
-#  Inkspire — OSINT Port Scanner
+# 🕵️‍♂️ Inkspire — OSINT & Port Scanner
 
 ![inkspire (1)](https://github.com/user-attachments/assets/864f83a9-04c4-40c1-b659-b7bce2d91b61)
 
+**Inkspire** is a high-performance network reconnaissance tool written in Go. It combines multi-threaded port scanning with deep OSINT gathering, providing a comprehensive snapshot of any target's infrastructure.
 
-Inkspire — это быстрый и надёжный сканер портов, созданный на языке Go. Помимо проверки состояния портов, он собирает основную OSINT-информацию о цели, такую как геолокация, данные WHOIS и DNS-записи.
-
-
-Сайт:https://inkspire.ventie.dev
+🌐 **Project Website:** [inkspire.ventie.dev](https://inkspire.ventie.dev)
 
 ---
 
-### 🚀 Ключевые возможности
+### 🚀 Key Features
 
-* **Мультипоточное сканирование портов**: Быстрое сканирование больших диапазонов портов.
-* **Определение состояния портов**: Различает порты на `open` (открытые), `filtered` (отфильтрованные) и `closed` (закрытые).
-* **Сбор OSINT-информации**: Получение данных о геолокации (страна, город, провайдер) и информации из WHOIS (регистратор, организация).
-* **Поиск DNS-записей**: Выполняет обратный DNS-запрос для получения имени хоста.
-* **Граббинг баннеров**: Пытается получить информацию о сервисе, работающем на открытом порту.
-* **Кроссплатформенность**: Работает на Windows, Linux и macOS.
-
----
-
-### 📦 Как установить и запустить
-
-#### 1. Скачайте релиз
-
-Скачайте скомпилированный файл для вашей операционной системы со страницы [Releases](https://github.com/VentieRavelle/Inkspire/releases) в этом репозитории.
-
-Вам также потребуется файл `known_ports.json` — он должен находиться в одной папке с исполняемым файлом.
-
-#### 2. Запуск
-
-Запустите программу из командной строки.
-
-* Для **Linux / macOS**: `./inkspire [флаги]`
-* Для **Windows**: `inkspire.exe [флаги]`
+* **Lightning Fast Scanning**: Utilizes Go's concurrency (goroutines) for high-speed port analysis.
+* **Dual Protocol Support**: Accurately detects **TCP** (Open/Closed) and **UDP** (Open/Filtered) states.
+* **Deep OSINT Gathering**: 
+    * **Geolocation**: Real-time lookup of Country, City, and ISP.
+    * **WHOIS Data**: Retrieves Registrar and Organization details.
+    * **Reverse DNS**: Automatically resolves IP addresses to hostnames.
+* **Vulnerability Detection**: Cross-references discovered service banners with a built-in **CVE database**.
+* **Smart Reporting**: Automatically saves detailed scan results to your `Downloads` folder in JSON format.
+* **Cross-Platform**: Native binaries for Windows, Linux, and macOS.
 
 ---
 
-### ⚙️ Флаги командной строки
+### ⚙️ Command Line Arguments
 
-* `-ip` (обязательный): Целевой IP-адрес или CIDR-подсеть (например, `192.168.1.1` или `192.168.1.0/24`).
-* `-ports` (опциональный, по умолчанию `1-1024`): Диапазон портов для сканирования (например, `20-100` или `80,443,8080`).
-* `-workers` (опциональный, по умолчанию `100`): Количество одновременных горутин для сканирования.
-* `-timeout` (опциональный, по умолчанию `1000`): Таймаут в миллисекундах для каждого соединения.
+| Flag | Description | Default |
+| :--- | :--- | :--- |
+| `-ip` | **(Required)** Target IP address or CIDR range | `""` |
+| `-ports` | Port range or comma-separated list (e.g., `80,443,1-1024`) | `1-1024` |
+| `-w` | Number of concurrent workers (goroutines) | `100` |
+| `-force` | Scan even if the host does not respond to ICMP (Ping) | `false` |
 
-#### Примеры:
+---
 
-Сканирование стандартных портов на конкретном IP:
+### 📦 Installation & Usage
+
+#### 1. Quick Start (Binary)
+Download the latest binary for your OS from the [Releases](https://github.com/VentieRavelle/Inkspire/releases) page. Ensure the `data/known_ports.json` file is present in the project directory.
+
+#### 2. Build from Source
 ```bash
-./inkspire -ip 192.168.1.1 -ports 1-1024
-
+git clone [https://github.com/VentieRavelle/Inkspire.git](https://github.com/VentieRavelle/Inkspire.git)
+cd Inkspire/cmd
+go build -o inkspire main.go
